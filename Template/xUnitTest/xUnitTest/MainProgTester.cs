@@ -1,4 +1,5 @@
 using System;
+using Kata;
 using Xunit;
 
 namespace TDD
