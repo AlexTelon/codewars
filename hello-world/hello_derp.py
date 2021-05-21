@@ -1,16 +1,18 @@
 from inspect import currentframe, getframeinfo
-anchor = ord('a')+3-1; goal = 'hello world!'
+init_anchor = anchor = ord('a')
 def add_args(i, delta=0):
     c = getframeinfo(currentframe().f_back).lineno
-    print(c)
     def decorator(func):
         def inner(*args):
             global anchor
-            anchor -= 9
-            # print(f'anchor: {anchor}, c: {c}, anchor+c: {anchor+c} = {chr(anchor+c)}, error: {ord(goal[i]) - (anchor+c)}, should:{goal[i]}')
+            anchor = anchor - 9 if anchor > 0 else init_anchor
             return func(*args, anchor+c+delta)
         return inner
     return decorator
+
+
+
+
 @add_args(0)     # h = 8,        0
 
 
@@ -100,11 +102,14 @@ def add_args(i, delta=0):
 @add_args(10)    # d = 4         -8
 @add_args(11, -59)    # ! = 
 def greet(*args):
+    print(args)
     return "".join(chr(c) for c in args)
 
 # print(greet())
 if __name__ == "__main__":
     print(greet())
+    print(greet())
+    # print(greet())
 #     # from statistics import mean
 #     # import math
 #     # goal = 'hello world!'
