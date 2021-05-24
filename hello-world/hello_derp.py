@@ -1,25 +1,25 @@
 from inspect import currentframe, getframeinfo
-init_anchor = anchor = ord('a')
-def add_args(i, delta=0):
-    c = getframeinfo(currentframe().f_back).lineno
+init_anchor = anchor = 99
+def add_args(delta=0):
+    l = getframeinfo(currentframe().f_back).lineno
     def decorator(func):
         def inner(*args):
             global anchor
-            anchor = anchor - 9 if anchor > 0 else init_anchor
-            return func(*args, anchor+c+delta)
+            anchor = anchor - 9 if anchor >= 0 else init_anchor - 9
+            return func(*args, anchor+l+delta)
         return inner
     return decorator
 
 
+@add_args()
 
 
-@add_args(0)     # h = 8,        0
 
 
 
+@add_args()
 
 
-@add_args(1)     # e = 5,        -3
 
 
 
@@ -33,18 +33,18 @@ def add_args(i, delta=0):
 
 
 
+@add_args()
 
 
-@add_args(2)     # l = 12        7
 
 
 
 
 
 
+@add_args()
 
 
-@add_args(3)     # l = 12        0
 
 
 
@@ -54,9 +54,9 @@ def add_args(i, delta=0):
 
 
 
+@add_args()
 
 
-@add_args(4)     # o = 15        3
 
 
 
@@ -73,17 +73,17 @@ def add_args(i, delta=0):
 
 
 
+@add_args(-89)
 
 
-@add_args(5, -89)     #   = 
 
 
 
 
+@add_args()
+@add_args()
 
 
-@add_args(6)     # w = 23        
-@add_args(7)     # o = 15        -8
 
 
 
@@ -93,22 +93,22 @@ def add_args(i, delta=0):
 
 
 
+@add_args()
 
 
-@add_args(8)     # r = 18        +3
-
-
-@add_args(9)     # l = 12        -6
-@add_args(10)    # d = 4         -8
-@add_args(11, -59)    # ! = 
+@add_args()
+@add_args()
+@add_args(-59)
 def greet(*args):
-    print(args)
     return "".join(chr(c) for c in args)
 
 # print(greet())
 if __name__ == "__main__":
     print(greet())
     print(greet())
+    print(chr(59))
+    print(chr(89))
+    # print(ord('a') + 2)
     # print(greet())
 #     # from statistics import mean
 #     # import math
